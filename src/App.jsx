@@ -1,12 +1,12 @@
 import React from 'react';
-import DefaultLayout from './layouts/DefaultLayout/DefaultLayout';
+import MainLayout from './layouts/MainLayout/MainLayout';
 import Routes from './Routes';
 
 function App() {
   return (
-    <DefaultLayout>
+    <MainLayout>
       <Routes />
-    </DefaultLayout>
+    </MainLayout>
   );
 }
 
