@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const DefaultLayout = ({ children }) => <>{children}</>;
 
-DefaultLayout.prototype = {
+DefaultLayout.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
