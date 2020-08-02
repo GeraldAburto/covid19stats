@@ -9,7 +9,7 @@ const CustomErrorPage = () => (
       <p style={{ fontSize: '40px' }}>
         <FontAwesomeIcon icon={faHeartBroken} size="lg" />
         {' '}
-        Something wen wrong.
+        Something went wrong.
       </p>
     </Col>
   </Row>

@@ -8,9 +8,9 @@ const BackToTopButton = () => {
   const buttonRef = useRef();
 
   useEffect(() => {
-    if (!buttonRef || !buttonRef.current) return;
-
     window.addEventListener('scroll', () => {
+      if (!buttonRef || !buttonRef.current) return;
+
       if (window.scrollY > 300) {
         buttonRef.current.style.display = 'block';
       } else {

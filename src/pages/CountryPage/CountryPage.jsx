@@ -120,7 +120,7 @@ const CountryPage = withRouter(({ history }) => {
                         <p>
                           Last update:
                           {' '}
-                          { moment(countryStats.time).format('LLL') }
+                          { moment(countryStats.time).format('MM/DD/YYYY HH:MM') }
                         </p>
                       </Col>
                     </Row>

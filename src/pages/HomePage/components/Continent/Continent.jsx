@@ -41,7 +41,7 @@ const Continent = ({ continent, countries }) => (
                           { time && (
                           <Col sm={12}>
                             <Badge variant="info">
-                              {`Last update: ${moment(time).format('LLL')}`}
+                              {`Last update: ${moment(time).format('MM/DD/YYYY HH:MM')}`}
                             </Badge>
                           </Col>
                           )}
