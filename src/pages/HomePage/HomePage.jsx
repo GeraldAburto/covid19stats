@@ -1,10 +1,11 @@
 import React, { useMemo, useState, useEffect } from 'react';
+import { Row, Col, Spinner } from 'react-bootstrap';
 import Continent from './components/Continent/Continent';
 import SearchBar from './components/SearchBar/SearchBar';
-import SearchContext from '../../contexts/SearchContext';
 
 const HomePage = () => {
   const [statistics, setStatistics] = useState([]);
+  const [showSpinner, setShowsSpinner] = useState(true);
 
   useEffect(() => {
     const fetchStatistics = async () => {
@@ -38,25 +39,35 @@ const HomePage = () => {
         map[stats.continent] = [stats];
       }
     }
+    setShowsSpinner(false);
     return map;
   }, [statistics]);
 
   return (
-    <div>
-      <SearchBar />
-      <div>
-        {
-          continents && Object.keys(continents)
-            .map((continent) => (
-              <Continent
-                key={continent}
-                continent={continent}
-                countries={continents[continent]}
-              />
-            ))
+    <Row>
+      <Col sm={12}><SearchBar /></Col>
+      <Col sm={12}>
+        <Row>
+          {
+            showSpinner ? (
+              <Col sm={12} className="text-center">
+                <Spinner animation="border" role="status" size="lg">
+                  <span className="sr-only">Loading...</span>
+                </Spinner>
+              </Col>
+            )
+              : continents && Object.keys(continents)
+                .map((continent) => (
+                  <Continent
+                    key={continent}
+                    continent={continent}
+                    countries={continents[continent]}
+                  />
+                ))
         }
-      </div>
-    </div>
+        </Row>
+      </Col>
+    </Row>
   );
 };
 
