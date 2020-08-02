@@ -1,11 +1,15 @@
 import React, { useRef, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import './BackToTopButton.styles.scss';
 
 const BackToTopButton = () => {
   const buttonRef = useRef();
 
   useEffect(() => {
+    if (!buttonRef.current) return;
+
     window.addEventListener('scroll', () => {
       if (window.scrollY > 300) {
         buttonRef.current.style.display = 'block';
@@ -29,7 +33,7 @@ const BackToTopButton = () => {
       ref={buttonRef}
       onClick={() => backToTop()}
     >
-      <span role="img" aria-label="top">⬆️</span>
+      <FontAwesomeIcon icon={faArrowUp} />
     </Button>
   );
 };
