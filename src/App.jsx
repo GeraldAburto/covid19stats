@@ -1,12 +1,15 @@
 import React from 'react';
 import MainLayout from './layouts/MainLayout/MainLayout';
 import Routes from './Routes';
+import SearchContextProvider from './providers/SearchProvider';
 
 function App() {
   return (
-    <MainLayout>
-      <Routes />
-    </MainLayout>
+    <SearchContextProvider>
+      <MainLayout>
+        <Routes />
+      </MainLayout>
+    </SearchContextProvider>
   );
 }
 
