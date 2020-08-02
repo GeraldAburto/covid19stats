@@ -35,7 +35,7 @@ const CountryPage = () => {
             <Row>
               <Col sm={12}>
                 <Breadcrumb>
-                  <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
+                  <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
                   <Breadcrumb.Item active>
                     {countryStats.continent}
                   </Breadcrumb.Item>
