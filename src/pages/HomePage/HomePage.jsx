@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { Row, Col, Spinner } from 'react-bootstrap';
 import Continent from './components/Continent/Continent';
-import SearchBar from './components/SearchBar/SearchBar';
+import SearchBar from '../../components/SearchBar/SearchBar';
 
 const HomePage = () => {
   const [statistics, setStatistics] = useState([]);

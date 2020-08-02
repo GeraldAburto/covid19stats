@@ -5,7 +5,7 @@ import { Navbar, Container } from 'react-bootstrap';
 const DefaultLayout = ({ children }) => (
   <>
     <Navbar bg="light">
-      <Navbar.Brand>Covid-19 Statistics</Navbar.Brand>
+      <Navbar.Brand>COVID-19 Statistics</Navbar.Brand>
     </Navbar>
     <Container className="mt-3">
       {children}
