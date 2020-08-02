@@ -39,7 +39,7 @@ const CountryPage = withRouter(({ history }) => {
             <Row>
               <Col sm={12}>
                 <Breadcrumb>
-                  <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+                  <Breadcrumb.Item style={{ cursor: 'pointer' }} onClick={() => history.push('/')}>Home</Breadcrumb.Item>
                   <Breadcrumb.Item active>
                     {countryStats.continent}
                   </Breadcrumb.Item>
