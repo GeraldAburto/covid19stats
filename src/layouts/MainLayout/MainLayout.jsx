@@ -6,7 +6,7 @@ import VirusesSVG from '../../assets/virus.svg';
 const DefaultLayout = ({ children }) => (
   <>
     <Navbar bg="light">
-      <Navbar.Brand>
+      <Navbar.Brand href="/">
         <img
           src={VirusesSVG}
           alt=""

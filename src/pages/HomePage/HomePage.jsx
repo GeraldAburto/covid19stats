@@ -1,18 +1,20 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { Row, Col, Spinner } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
 import Continent from './components/Continent/Continent';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import BackToTopButton from '../../components/BackToTopButton/BackToTopButton';
 import fetchStatistics from '../../RapidAPI';
 
-const HomePage = () => {
+const HomePage = withRouter(({ history }) => {
   const [statistics, setStatistics] = useState([]);
   const [showSpinner, setShowsSpinner] = useState(true);
 
   useEffect(() => {
     fetchStatistics()
-      .then(({ response }) => setStatistics(response));
-  }, []);
+      .then(({ response }) => setStatistics(response))
+      .catch(() => history.push('/error'));
+  }, [history]);
 
   const continents = useMemo(() => {
     if (!statistics || statistics.length === 0) return {};
@@ -62,6 +64,6 @@ const HomePage = () => {
       <BackToTopButton />
     </Row>
   );
-};
+});
 
 export default HomePage;

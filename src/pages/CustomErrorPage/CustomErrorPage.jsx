@@ -1,18 +1,18 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSadTear } from '@fortawesome/free-solid-svg-icons';
+import { faHeartBroken } from '@fortawesome/free-solid-svg-icons';
 
-const NotFoundPage = () => (
+const CustomErrorPage = () => (
   <Row>
     <Col sm={12} className="text-center">
       <p style={{ fontSize: '40px' }}>
-        <FontAwesomeIcon icon={faSadTear} size="lg" />
+        <FontAwesomeIcon icon={faHeartBroken} size="lg" />
         {' '}
-        Not Found.
+        Something wen wrong.
       </p>
     </Col>
   </Row>
 );
 
-export default NotFoundPage;
+export default CustomErrorPage;

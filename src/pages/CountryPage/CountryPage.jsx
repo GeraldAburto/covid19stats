@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, withRouter } from 'react-router-dom';
 import {
   Row, Col, Spinner, Card, Badge, Table, Breadcrumb,
 } from 'react-bootstrap';
@@ -7,18 +7,22 @@ import moment from 'moment';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import fetchStatistics from '../../RapidAPI';
 
-const CountryPage = () => {
+const CountryPage = withRouter(({ history }) => {
   const { country } = useParams();
   const [countryStats, setCountryStats] = useState({});
   const [showSpinner, setShowsSpinner] = useState(true);
 
   useEffect(() => {
     fetchStatistics(country)
-      .then(({ response }) => {
+      .then(({ response, results }) => {
+        if (results === 0) return history.push('/notfound');
+
         setCountryStats(response[0]);
         setShowsSpinner(false);
-      });
-  }, [country]);
+        return {};
+      })
+      .catch(() => history.push('/error'));
+  }, [country, history]);
 
   return (
     <Row>
@@ -129,6 +133,6 @@ const CountryPage = () => {
       </Col>
     </Row>
   );
-};
+});
 
 export default CountryPage;
