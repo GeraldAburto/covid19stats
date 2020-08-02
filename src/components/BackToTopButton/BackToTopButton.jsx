@@ -8,7 +8,7 @@ const BackToTopButton = () => {
   const buttonRef = useRef();
 
   useEffect(() => {
-    if (!buttonRef.current) return;
+    if (!buttonRef || !buttonRef.current) return;
 
     window.addEventListener('scroll', () => {
       if (window.scrollY > 300) {
@@ -17,7 +17,7 @@ const BackToTopButton = () => {
         buttonRef.current.style.display = 'none';
       }
     });
-  }, [buttonRef.current]);
+  }, [buttonRef]);
 
   const backToTop = () => {
     window.scroll({

@@ -3,24 +3,15 @@ import { Row, Col, Spinner } from 'react-bootstrap';
 import Continent from './components/Continent/Continent';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import BackToTopButton from '../../components/BackToTopButton/BackToTopButton';
+import fetchStatistics from '../../RapidAPI';
 
 const HomePage = () => {
   const [statistics, setStatistics] = useState([]);
   const [showSpinner, setShowsSpinner] = useState(true);
 
   useEffect(() => {
-    const fetchStatistics = async () => {
-      const response = await fetch('https://covid-193.p.rapidapi.com/statistics', {
-        method: 'GET',
-        headers: {
-          'x-rapidapi-host': 'covid-193.p.rapidapi.com',
-          'x-rapidapi-key': '703f1d299amsh57340e340d0bb7fp14836fjsn0413752f70b0',
-        },
-      });
-      const data = await response.json();
-      setStatistics(data.response);
-    };
-    fetchStatistics();
+    fetchStatistics()
+      .then(({ response }) => setStatistics(response));
   }, []);
 
   const continents = useMemo(() => {

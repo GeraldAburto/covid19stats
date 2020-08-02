@@ -21,7 +21,7 @@ const Continent = ({ continent, countries }) => (
                     .map(({
                       country, cases: { total }, population, time,
                     }) => (
-                      <ListGroup.Item>
+                      <ListGroup.Item key={country}>
                         <Row>
                           <Col sm={12}><Link to={`country/${country}`}>{ country }</Link></Col>
                           { population && (
