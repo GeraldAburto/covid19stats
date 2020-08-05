@@ -65,7 +65,7 @@ const HomePage = withRouter(({ history }) => {
                               continent={continent}
                               countries={continents[continent]}
                             />
-                          )) : <Col sm={12} className="text-center"><h1>Such empty, try whit other country name.</h1></Col>)
+                          )) : <Col sm={12} className="text-center"><h1>Such empty, try whit another country name.</h1></Col>)
                 }
               </Row>
             )

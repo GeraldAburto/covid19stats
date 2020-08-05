@@ -1,3 +1,13 @@
+# COVID-19 Statistics
+visit the home page
+[Covid-19 Statistics home page](https://geraldaburto.github.io/covid19stats/#/)
+
+Notice that i included a .env file whit RepidAPI Key, you can change and use your own if you want.
+```
+REACT_APP_RAPIDAPI_HOST=covid-193.p.rapidapi.com
+REACT_APP_REPIDAPI_KEY={your-rapidapi-key-here}
+```
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
