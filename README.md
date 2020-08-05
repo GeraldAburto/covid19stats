@@ -2,7 +2,8 @@
 visit the home page
 [Covid-19 Statistics home page](https://geraldaburto.github.io/covid19stats/#/)
 
-Notice that i included a .env file whit RepidAPI Key, you can change and use your own if you want.
+Notice that i included a .env file whit my personal RepidAPI Key intentionally, you can change and use your own if you want.
+
 ```
 REACT_APP_RAPIDAPI_HOST=covid-193.p.rapidapi.com
 REACT_APP_REPIDAPI_KEY={your-rapidapi-key-here}
