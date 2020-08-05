@@ -5,6 +5,7 @@ import Continent from './components/Continent/Continent';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import BackToTopButton from '../../components/BackToTopButton/BackToTopButton';
 import fetchStatistics from '../../RapidAPI';
+import SearchContext from '../../contexts/SearchContext';
 
 const HomePage = withRouter(({ history }) => {
   const [statistics, setStatistics] = useState([]);
@@ -27,6 +28,8 @@ const HomePage = withRouter(({ history }) => {
     for (let i = 0; i < statistics.length; i += 1) {
       stats = statistics[i];
 
+      if (stats.continent === null) stats.continent = 'Unknown';
+
       if (Object.prototype.hasOwnProperty.call(map, stats.continent)) {
         map[stats.continent].push(stats);
       } else {
@@ -41,25 +44,33 @@ const HomePage = withRouter(({ history }) => {
     <Row>
       <Col sm={12}><SearchBar /></Col>
       <Col sm={12}>
-        <Row>
+        <SearchContext.Consumer>
           {
-            showSpinner ? (
-              <Col sm={12} className="text-center">
-                <Spinner animation="border" role="status" size="lg">
-                  <span className="sr-only">Loading...</span>
-                </Spinner>
-              </Col>
+            ({ search }) => (
+              <Row>
+                {
+                  showSpinner ? (
+                    <Col sm={12} className="text-center">
+                      <Spinner animation="border" role="status" size="lg">
+                        <span className="sr-only">Loading...</span>
+                      </Spinner>
+                    </Col>
+                  )
+                    : continents && (
+                      Object.keys(continents).filter((continent) => continents[continent].some(({ country }) => country.toLowerCase().includes((search || '').toLocaleLowerCase()))).length > 0
+                        ? Object.keys(continents)
+                          .map((continent) => (
+                            <Continent
+                              key={continent}
+                              continent={continent}
+                              countries={continents[continent]}
+                            />
+                          )) : <Col sm={12} className="text-center"><h1>Such empty, try whit other country name.</h1></Col>)
+                }
+              </Row>
             )
-              : continents && Object.keys(continents)
-                .map((continent) => (
-                  <Continent
-                    key={continent}
-                    continent={continent}
-                    countries={continents[continent]}
-                  />
-                ))
-        }
-        </Row>
+          }
+        </SearchContext.Consumer>
       </Col>
       <BackToTopButton />
     </Row>
