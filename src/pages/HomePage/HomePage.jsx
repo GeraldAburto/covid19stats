@@ -1,76 +1,53 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Row, Col, Spinner } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import Continent from './components/Continent/Continent';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import BackToTopButton from '../../components/BackToTopButton/BackToTopButton';
-import fetchStatistics from '../../RapidAPI';
+import Covid19Service from '../../Covid19Service';
 import SearchContext from '../../contexts/SearchContext';
 
 const HomePage = withRouter(({ history }) => {
-  const [statistics, setStatistics] = useState([]);
+  const [statistics, setStatistics] = useState({});
   const [showSpinner, setShowsSpinner] = useState(true);
+  const searchContext = useContext(SearchContext);
 
   useEffect(() => {
-    fetchStatistics()
-      .then(({ response }) => setStatistics(response))
+    Covid19Service.getStatistics(searchContext.search)
+      .then((response) => {
+        setStatistics(response);
+        setShowsSpinner(false);
+      })
       .catch(() => history.push('/error'));
-  }, [history]);
-
-  const continents = useMemo(() => {
-    if (!statistics || statistics.length === 0) return {};
-
-    const map = {
-
-    };
-
-    let stats;
-    for (let i = 0; i < statistics.length; i += 1) {
-      stats = statistics[i];
-
-      if (stats.continent === null) stats.continent = 'Unknown';
-
-      if (Object.prototype.hasOwnProperty.call(map, stats.continent)) {
-        map[stats.continent].push(stats);
-      } else {
-        map[stats.continent] = [stats];
-      }
-    }
-    setShowsSpinner(false);
-    return map;
-  }, [statistics]);
+  }, [searchContext.search, history]);
 
   return (
     <Row>
       <Col sm={12}><SearchBar /></Col>
       <Col sm={12}>
-        <SearchContext.Consumer>
+        <Row>
           {
-            ({ search }) => (
-              <Row>
-                {
-                  showSpinner ? (
-                    <Col sm={12} className="text-center">
-                      <Spinner animation="border" role="status" size="lg">
-                        <span className="sr-only">Loading...</span>
-                      </Spinner>
-                    </Col>
-                  )
-                    : continents && (
-                      Object.keys(continents).filter((continent) => continents[continent].some(({ country }) => country.toLowerCase().includes((search || '').toLocaleLowerCase()))).length > 0
-                        ? Object.keys(continents)
-                          .map((continent) => (
-                            <Continent
-                              key={continent}
-                              continent={continent}
-                              countries={continents[continent]}
-                            />
-                          )) : <Col sm={12} className="text-center"><h1>Such empty, try whit another country name.</h1></Col>)
-                }
-              </Row>
-            )
+            showSpinner
+              && (
+              <Col sm={12} className="text-center">
+                <Spinner animation="border" role="status" size="lg">
+                  <span className="sr-only">Loading...</span>
+                </Spinner>
+              </Col>
+              )
           }
-        </SearchContext.Consumer>
+          {
+             statistics
+               ? (Object.keys(statistics)
+                 .map((continent) => (
+                   <Continent
+                     key={continent}
+                     continent={continent}
+                     countries={statistics[continent]}
+                   />
+                 ))) : <Col sm={12} className="text-center"><h1>Such empty, try whit another country name.</h1></Col>
+          }
+        </Row>
       </Col>
       <BackToTopButton />
     </Row>
