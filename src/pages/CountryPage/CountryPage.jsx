@@ -5,7 +5,7 @@ import {
 } from 'react-bootstrap';
 import moment from 'moment';
 import SearchBar from '../../components/SearchBar/SearchBar';
-import fetchStatistics from '../../RapidAPI';
+import Covid19Service from '../../Covid19Service';
 
 const CountryPage = withRouter(({ history }) => {
   const { country } = useParams();
@@ -13,9 +13,9 @@ const CountryPage = withRouter(({ history }) => {
   const [showSpinner, setShowsSpinner] = useState(true);
 
   useEffect(() => {
-    fetchStatistics(country)
-      .then(({ response, results }) => {
-        if (results === 0) return history.push('/notfound');
+    Covid19Service.getCountry(country)
+      .then((response) => {
+        if (!response) return history.push('/notfound');
 
         setCountryStats(response[0]);
         setShowsSpinner(false);
@@ -53,46 +53,51 @@ const CountryPage = withRouter(({ history }) => {
                     <Badge variant="info" className="float-right">{countryStats.continent}</Badge>
                   </Card.Header>
                   <Card.Body>
-                    <Table borderless responsive>
-                      <caption>Cases</caption>
-                      <thead>
-                        <tr>
-                          <th>New</th>
-                          <th>Active</th>
-                          <th>Critical</th>
-                          <th>Recovered</th>
-                          <th>Total</th>
-                          <th>1M pop</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>{countryStats.cases.new}</td>
-                          <td>{countryStats.cases.active}</td>
-                          <td>{countryStats.cases.critical}</td>
-                          <td>{countryStats.cases.recovered}</td>
-                          <td>{countryStats.cases['1M_pop']}</td>
-                          <td>{countryStats.cases.total}</td>
-                        </tr>
-                      </tbody>
-                    </Table>
-                    <Table borderless responsive>
-                      <caption>Deaths</caption>
-                      <thead>
-                        <tr>
-                          <th>New</th>
-                          <th>1M pop</th>
-                          <th>Total</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>{countryStats.deaths.new}</td>
-                          <td>{countryStats.deaths['1M_pop']}</td>
-                          <td>{countryStats.deaths.total}</td>
-                        </tr>
-                      </tbody>
-                    </Table>
+                    <div className="border-bottom">
+                      <Table borderless responsive>
+                        <caption>Cases</caption>
+                        <thead>
+                          <tr>
+                            <th>New</th>
+                            <th>Active</th>
+                            <th>Critical</th>
+                            <th>Recovered</th>
+                            <th>Total</th>
+                            <th>1M pop</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>{countryStats.cases.new}</td>
+                            <td>{countryStats.cases.active}</td>
+                            <td>{countryStats.cases.critical}</td>
+                            <td>{countryStats.cases.recovered}</td>
+                            <td>{countryStats.cases['1M_pop']}</td>
+                            <td>{countryStats.cases.total}</td>
+                          </tr>
+                        </tbody>
+                      </Table>
+                    </div>
+                    <div className="border-bottom">
+                      <Table borderless responsive>
+                        <caption>Deaths</caption>
+                        <thead>
+                          <tr>
+                            <th>New</th>
+                            <th>1M pop</th>
+                            <th>Total</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>{countryStats.deaths.new}</td>
+                            <td>{countryStats.deaths['1M_pop']}</td>
+                            <td>{countryStats.deaths.total}</td>
+                          </tr>
+                        </tbody>
+                      </Table>
+                    </div>
+                    <div className="border-bottom" />
                     <Table borderless responsive>
                       <caption>Tests</caption>
                       <thead>
@@ -108,6 +113,7 @@ const CountryPage = withRouter(({ history }) => {
                         </tr>
                       </tbody>
                     </Table>
+                    <div className="border-bottom" />
                     <Row>
                       <Col sm={12} md={6}>
                         <p>
