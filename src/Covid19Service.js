@@ -1,7 +1,7 @@
 class Covid19Service {
   static getStatistics(search = undefined) {
     return new Promise((resolve, reject) => {
-      fetch(`${process.env.REACT_APP_RAPIDAPI_HOST}/api/stats${search ? `?search=${search}` : ''}`, {
+      fetch(`${process.env.REACT_APP_API_HOST}/api/stats${search ? `?search=${search}` : ''}`, {
         method: 'GET',
       }).then((response) => {
         if (response.status === 200) {
@@ -17,7 +17,7 @@ class Covid19Service {
 
   static getCountry(country) {
     return new Promise((resolve, reject) => {
-      fetch(`${process.env.REACT_APP_RAPIDAPI_HOST}/api/stats/country/${country}`, {
+      fetch(`${process.env.REACT_APP_API_HOST}/api/stats/country/${country}`, {
         method: 'GET',
       }).then((response) => {
         if (response.status === 200) {
